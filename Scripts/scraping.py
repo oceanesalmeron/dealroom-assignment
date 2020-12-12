@@ -77,7 +77,7 @@ if __name__ == '__main__':
     
     caps = DesiredCapabilities().CHROME
     caps["pageLoadStrategy"] = "eager"
-    driver = webdriver.Chrome(desired_capabilities=caps, executable_path='./chromedriver')
+    driver = webdriver.Chrome(desired_capabilities=caps, executable_path='../chromedriver')
 
     driver.get(url)
     
@@ -97,4 +97,4 @@ if __name__ == '__main__':
     data.replace(r'^\s*$', np.nan, regex=True, inplace = True)
 
     print('Starting writing to excel ',len(links),' rows...')
-    export_excel('Data/test.xlsx','Scraping', data, False)
+    export_excel('../Data/Results.xlsx','Scraping results', data, False)

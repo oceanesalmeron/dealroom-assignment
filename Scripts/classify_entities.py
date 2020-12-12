@@ -88,7 +88,7 @@ def export_excel(Filename,Sheetname,df,ind):
 
 if __name__ == '__main__':
 
-    file = 'Data/Data_Science_Internship_Assignment.xlsx'
+    file = '../Data/Data_Science_Internship_Assignment.xlsx'
     data = pd.ExcelFile(file)
     data = data.parse('Data')
     
@@ -112,29 +112,12 @@ if __name__ == '__main__':
     
     print(df['TYPE'].value_counts())
     
-    filename = 'Data/test.xlsx'
-    
     count = df['TYPE'].value_counts().rename_axis('Type').to_frame('Count')
     
     data['TYPE']=df['TYPE']
     
+    filename = '../Data/Results.xlsx'
     print('Starting writing to excel...')
     export_excel(filename,'Count', count, True)
     export_excel(filename,'Data', data, False)
     print('Writing to excel done')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
