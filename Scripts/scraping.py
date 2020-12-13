@@ -8,13 +8,22 @@ Created on Sat Dec 12 18:46:09 2020
 
 import pandas as pd
 import numpy as np
+import time
 import xlsxwriter
+from excel_utilities import export_excel
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+
 def scroll_to_end(driver):
-    while len(driver.find_elements_by_xpath("//a[@class='SharedDirectory-module__company___AVmr6 no-hovercard']"))<1000 :
+    prev_len = driver.execute_script("return document.body.scrollHeight")
+    while True:
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(0.5)
+        new_len = driver.execute_script("return document.body.scrollHeight")
+        if new_len == prev_len:
+            break
+        prev_len = new_len
 
 
 def get_links(x):
@@ -42,33 +51,6 @@ def retrieve_info(driver):
         item[social.get_attribute('class').split()[-1]] = social.get_attribute('href')
         
     return item
-
-
-def export_excel(Filename,Sheetname,df,ind):
-    try:
-        xlsx_file = pd.ExcelFile(Filename)
-    except:
-        xlsxwriter.Workbook(Filename)
-        xlsx_file = pd.ExcelFile(Filename)
-
-    writer = pd.ExcelWriter(Filename, engine='openpyxl')
-    IsSheetThereAlready = False
-    for sheet in xlsx_file.sheet_names:
-        if sheet == Sheetname:
-            df.to_excel(writer,sheet_name= sheet, startrow=0, index=ind)
-            IsSheetThereAlready = True
-
-        else:
-            df2 = xlsx_file.parse(sheet)
-            df2.to_excel(writer,sheet_name= sheet, index=False)
-
-
-    if IsSheetThereAlready is False:
-        df.to_excel(writer,sheet_name = Sheetname, index=False)
-
-    writer.save()
-
-    return
     
     
 if __name__ == '__main__':
