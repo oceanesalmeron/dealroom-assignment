@@ -9,7 +9,6 @@ Created on Sat Dec 12 18:46:09 2020
 import pandas as pd
 import numpy as np
 import time
-import xlsxwriter
 from excel_utilities import export_excel
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
