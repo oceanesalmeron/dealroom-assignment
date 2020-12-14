@@ -40,9 +40,9 @@ The data provided is an export of startups from the Dealroom database.
 
 To execute the script run :
 ```
-cd Scripts
 python3 classify_entities.py
 ```
+Please don't forget you need to uncomment line 13 : `#nltk.download('stopwords')` in **classify_entities.py** if it's not downloaded yet.
 
 ## Part 2 - Web scraping
 
@@ -59,7 +59,6 @@ The information I retrieved are :
 
 To execute the script run :
 ```
-cd Scripts
 python3 scraping.py
 ```
 
@@ -69,4 +68,4 @@ Results for part 1 & 2 are provided in **Results.xlsx** file in the Data folder.
 
 ## Logic and code used
 
-Explaination can be found in **LOGIC.md** file. For detailed explaination (line by line), you can check the Notebook folder where you can found **classify_entities.ipynb** and **scraping.ipynb**
+Explaination can be found in **logic.md** file. For detailed explaination (line by line), you can check the Notebook folder where you can found [**classify_entities.ipynb**](Scripts/classify_entities.ipynb) and [**scraping.ipynb**](Scripts/scraping.ipynb)
