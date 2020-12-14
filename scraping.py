@@ -9,7 +9,7 @@ Created on Sat Dec 12 18:46:09 2020
 import pandas as pd
 import numpy as np
 import time
-from excel_utilities import export_excel
+from Scripts.excel_utilities import export_excel
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
@@ -58,7 +58,7 @@ if __name__ == '__main__':
     
     caps = DesiredCapabilities().CHROME
     caps["pageLoadStrategy"] = "eager"
-    driver = webdriver.Chrome(desired_capabilities=caps, executable_path='../chromedriver')
+    driver = webdriver.Chrome(desired_capabilities=caps, executable_path='./chromedriver')
 
     driver.get(url)
     
@@ -78,4 +78,4 @@ if __name__ == '__main__':
     data.replace(r'^\s*$', np.nan, regex=True, inplace = True)
 
     print('Starting writing to excel ',len(links),' rows...')
-    export_excel('../Data/Results.xlsx','Scraping results', data, False)
+    export_excel('Data/Results.xlsx','Scraping results', data, False)

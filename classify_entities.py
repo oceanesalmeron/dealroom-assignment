@@ -11,7 +11,7 @@ import numpy as np
 import nltk
 from nltk.corpus import stopwords
 #nltk.download('stopwords')
-from excel_utilities import export_excel
+from Scripts.excel_utilities import export_excel
 
 def load_data(file):
     data = pd.ExcelFile(file)
@@ -75,9 +75,10 @@ def classify(x, tech, education, government, mature):
     
     if(dic[maximum] == 0):
         entity = 'Unclassified'
-    elif (maximum == 'Startup'):
-        if (x['LAUNCH_DATE']<1990):
-            entity = 'Mature company'
+    elif (maximum == 'Startup') and (x['LAUNCH_DATE']<1990):
+        entity = 'Mature company'
+    elif (maximum == 'Mature company') and (x['LAUNCH_DATE']>1990):
+        entity = "Unclassified"
             
     return entity
 
@@ -86,7 +87,7 @@ if __name__ == '__main__':
 
 
     # Load dataframe
-    data = load_data('../Data/Data_Science_Internship_Assignment.xlsx')
+    data = load_data('Data/Data_Science_Internship_Assignment.xlsx')
     
     df = data.drop(['WEBSITE', 'HQ REGION', 'HQ COUNTRY', 'HQ CITY', 'GROWTH STAGE', 'LINKEDIN'], axis=1)
     df = clean_data(df)
@@ -118,7 +119,7 @@ if __name__ == '__main__':
     data['TYPE']=df['TYPE']
     
     # Excel export
-    filename = '../Data/Results.xlsx'
+    filename = 'Data/Results.xlsx'
     print('Writing to excel...')
     export_excel(filename,'Count', df['TYPE'].value_counts().rename_axis('Type').to_frame('Count'), True)
     export_excel(filename,'Data', data, False)
